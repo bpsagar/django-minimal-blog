@@ -1,0 +1,5 @@
+Django==1.9.8
+Markdown==2.6.6
+docutils==0.12
+jsonfield==1.0.3
+Pillow==3.3.0
