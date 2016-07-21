@@ -17,7 +17,7 @@ urlpatterns = [
 ```
 Provide the following templates:
 
-1. `blog/post_list.html`: Template to display the list of blog post. Context variable: `posts`
+1. `blog/post_list.html`: Template to display the list of blog post. Context variables: `posts`, `category`
 2. `blog/post.html`: Template to display a blog post. Context variable: `post`
 
 ## Settings
@@ -27,4 +27,5 @@ Provide the following templates:
 3. `BLOG_POST_CONTEXT_NAME`: Context varaible name used in `blog/post.html` template. Default: `post`
 4. `BLOG_URLS`: Dictionary to specify custom URLs
   1. `post_list`: URL for blog post list view.
-  2. `post`: URL for blog post view. Requires `slug` and an optional `year` and `month`.
+  2. `posts_by_category`: URL for blog posts by category. Requires `category` in URL.
+  3. `post`: URL for blog post view. Requires `slug` and an optional `year` and `month` in URL.
