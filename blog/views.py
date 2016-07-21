@@ -12,7 +12,7 @@ class PostListView(ListView):
 
     paginate_by = getattr(settings, 'BLOG_POSTS_PER_PAGE', 10)
     context_object_name = getattr(
-        settings, 'BLOG_POST_LIST_CONTEXT_NAME', 'object_list')
+        settings, 'BLOG_POST_LIST_CONTEXT_NAME', 'posts')
     template_name = 'blog/post_list.html'
 
     def get_queryset(self):
