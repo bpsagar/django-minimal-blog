@@ -92,6 +92,26 @@ class Category(models.Model):
         return hlist
 
 
+class PostManager(models.Manager):
+    '''A manager model for Post'''
+
+    def published(self):
+        '''Returns only published blog posts'''
+        return self.get_queryset().filter(is_published=True)
+
+    def category(self, category):
+        '''Returns published blog posts of `category`'''
+        queryset = self.published()
+        categories = [category]
+        index = 0
+        while index < len(categories):
+            current_category = categories[index]
+            categories += list(Category.objects.filter(
+                parent=current_category))
+            index += 1
+        return queryset.filter(categories__in=categories).distinct()
+
+
 class Post(models.Model):
     '''A model that contains information about a blog post'''
 
@@ -165,6 +185,9 @@ class Post(models.Model):
 
     # Attachments included in the blog post
     attachments = models.ManyToManyField(Attachment, blank=True)
+
+    # Manager model
+    objects = PostManager()
 
     class Meta:
         verbose_name = 'Post'

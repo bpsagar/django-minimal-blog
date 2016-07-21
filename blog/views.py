@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 
-from .models import Post
+from .models import Category, Post
 
 
 class PostListView(ListView):
@@ -16,7 +16,26 @@ class PostListView(ListView):
     template_name = 'blog/post_list.html'
 
     def get_queryset(self):
-        return Post.objects.filter(is_published=True)
+        return Post.objects.published()
+
+
+class PostsByCategoryView(ListView):
+    '''A view to display a list of blog posts of a particular category'''
+
+    paginate_by = getattr(settings, 'BLOG_POSTS_PER_PAGE', 10)
+    context_object_name = getattr(
+        settings, 'BLOG_POST_LIST_CONTEXT_NAME', 'posts')
+    template_name = 'blog/post_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PostsByCategoryView, self).get_context_data(**kwargs)
+        context['category'] = self.category
+        return context
+
+    def get_queryset(self):
+        self.category = get_object_or_404(
+            Category, name=self.kwargs.get('category'))
+        return Post.objects.category(self.category)
 
 
 class PostView(TemplateView):
