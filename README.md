@@ -1,5 +1,10 @@
 # django-minimal-blog
 A minimalistic blog app for django
+## Installation
+```
+pip install git+https://github.com/bpsagar/django-minimal-blog.git
+```
+
 ## Quickstart
 Add blog to INSTALLED_APPS in settings.py of your project
 ```
