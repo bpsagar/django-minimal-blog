@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 
 from docutils.core import publish_parts
@@ -196,6 +197,15 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        '''Absolute URL of the blog post'''
+        kwargs = {
+            'year': str(self.published_on.year),
+            'month': '%02d' % self.published_on.month,
+            'slug': self.slug
+        }
+        return reverse('blog:post', kwargs=kwargs)
 
     def get_attachments(self):
         '''Returns a dictionary of attachment key and attachment embed code'''
