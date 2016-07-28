@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^$', views.PostListView.as_view(), name='post_list'),
 
     # URL to display the list of paginated blog posts of a particular category
-    url(r'^(?P<category>[\w]+)/$', views.PostsByCategoryView.as_view(),
+    url(r'^(?P<category_slug>[\w-]+)/$', views.PostsByCategoryView.as_view(),
         name='posts_by_category'),
 
     # URL to display a blog post

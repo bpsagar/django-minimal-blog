@@ -74,6 +74,9 @@ class Category(models.Model):
     # Name of the blog post category
     name = models.CharField(max_length=100)
 
+    # Slug of the blog post category that will be used in URL
+    slug = models.SlugField(max_length=100)
+
     # Parent of the category
     parent = models.ForeignKey('Category', blank=True, null=True)
 
@@ -94,7 +97,7 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         '''Absolute URL of the blog posts by this category'''
-        kwargs = {'category': self.name.lower()}
+        kwargs = {'category_slug': self.slug}
         return reverse('blog:posts_by_category', kwargs=kwargs)
 
 
