@@ -34,7 +34,7 @@ class PostsByCategoryView(ListView):
 
     def get_queryset(self):
         self.category = get_object_or_404(
-            Category, name=self.kwargs.get('category'))
+            Category, name__iexact=self.kwargs.get('category'))
         return Post.objects.category(self.category)
 
 

@@ -92,6 +92,11 @@ class Category(models.Model):
             hlist = [hlist[0].parent] + hlist
         return hlist
 
+    def get_absolute_url(self):
+        '''Absolute URL of the blog posts by this category'''
+        kwargs = {'category': self.name.lower()}
+        return reverse('blog:posts_by_category', kwargs=kwargs)
+
 
 class PostManager(models.Manager):
     '''A manager model for Post'''
